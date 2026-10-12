@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "Nazwa może zawierać tylko litery, cyfry, kropki, podkreślenia i łączniki",
+    "invalidChars": "Nazwa może zawierać tylko litery, cyfry, spacje, kropki, podkreślenia i łączniki",
     "duplicateName": "Dystrybucja o nazwie \"{{name}}\" już istnieje",
     "nameExists": "Dystrybucja o tej nazwie już istnieje",
     "required": "To pole jest wymagane"

@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "O nome só pode conter letras, números, pontos, sublinhados e hífens",
+    "invalidChars": "O nome só pode conter letras, números, espaços, pontos, sublinhados e hífens",
     "duplicateName": "Já existe uma distribuição chamada \"{{name}}\"",
     "nameExists": "Já existe uma distribuição com este nome",
     "required": "Este campo é obrigatório"

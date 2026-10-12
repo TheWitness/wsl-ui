@@ -112,7 +112,7 @@ export function InstallConfigDialog({
       return null;
     }
 
-    if (!/^[a-zA-Z0-9._-]+$/.test(trimmedName)) {
+    if (!/^[a-zA-Z0-9._ -]+$/.test(trimmedName)) {
       return t('common:validation.invalidChars') as string;
     }
 

@@ -130,7 +130,7 @@ export function CloneDialog({ isOpen, sourceName, onClose }: CloneDialogProps) {
       return t('clone.errorSameAsSource') as string;
     }
 
-    if (!/^[a-zA-Z0-9._-]+$/.test(trimmedName)) {
+    if (!/^[a-zA-Z0-9._ -]+$/.test(trimmedName)) {
       return t('common:validation.invalidChars') as string;
     }
 

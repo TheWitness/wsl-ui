@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "名称只能包含字母、数字、点、下划线和连字符",
+    "invalidChars": "名称只能包含字母、数字、空格、点、下划线和连字符",
     "duplicateName": "名为 \"{{name}}\" 的发行版已存在",
     "nameExists": "同名发行版已存在",
     "required": "此字段为必填项"
