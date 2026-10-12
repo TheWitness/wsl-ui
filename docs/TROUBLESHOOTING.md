@@ -1664,3 +1664,16 @@ How we fixed it or workaround steps.
 ### Related
 - Links to external issues, documentation, etc.
 ```
+
+## New distribution name rejected by WSL
+
+If registration fails with `Invalid distribution name` and
+`Wsl/Service/RegisterDistro/E_INVALIDARG`, use ASCII letters, numbers, dots,
+underscores or hyphens in the new name. For example, use `Rocky-Test` instead of
+`Rocky Test`. Quoting a name does not make spaces valid for registration.
+
+Microsoft's [`s_ValidateDistroName` implementation](https://github.com/microsoft/WSL/blob/master/src/windows/service/exe/LxssUserSession.cpp)
+checks this character restriction. WSL UI validates new names before starting
+imports or downloads. Handling an existing externally assigned name is a separate
+compatibility concern; a parser accepting spaces does not establish that WSL can
+register a new name containing them.

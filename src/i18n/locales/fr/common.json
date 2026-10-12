@@ -49,7 +49,7 @@
     "tb": "To"
   },
   "validation": {
-    "invalidChars": "Le nom ne peut contenir que des lettres, des chiffres, des espaces, des points, des tirets bas et des tirets",
+    "invalidChars": "Le nom ne peut contenir que des lettres, des chiffres, des points, des tirets bas et des tirets",
     "duplicateName": "Une distribution nommée \"{{name}}\" existe déjà",
     "nameExists": "Une distribution portant ce nom existe déjà",
     "required": "Ce champ est obligatoire"

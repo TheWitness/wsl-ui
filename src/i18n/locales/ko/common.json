@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "이름에는 영문자, 숫자, 공백, 점, 밑줄, 하이픈만 사용할 수 있습니다",
+    "invalidChars": "이름에는 영문자, 숫자, 점, 밑줄, 하이픈만 사용할 수 있습니다",
     "duplicateName": "\"{{name}}\" 이름의 배포판이 이미 존재합니다",
     "nameExists": "이 이름의 배포판이 이미 존재합니다",
     "required": "이 필드는 필수입니다"

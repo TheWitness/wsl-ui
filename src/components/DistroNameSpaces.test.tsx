@@ -13,7 +13,7 @@ vi.mock('../store/notificationStore', () => ({
 }));
 vi.mock('../services/wslService', () => ({
   wslService: {
-    getDefaultDistroPath: vi.fn().mockResolvedValue('C:\\WSL\\Release Test'),
+    getDefaultDistroPath: vi.fn().mockResolvedValue('C:\\WSL\\Release-Test'),
     validateInstallPath: vi.fn().mockResolvedValue({ isValid: true }),
     cloneDistribution: vi.fn().mockResolvedValue(undefined),
     renameDistribution: vi.fn().mockResolvedValue(undefined),
@@ -38,22 +38,22 @@ describe.each(['install-config', 'clone', 'rename'] as const)('%s distro names',
   });
   afterEach(() => { cleanup(); vi.useRealTimers(); });
 
-  it('submits an interior space unchanged', async () => {
-    fireEvent.change(screen.getByTestId(`${dialog}-name-input`), { target: { value: 'Release Test' } });
+  it('submits a valid hyphenated name unchanged', async () => {
+    fireEvent.change(screen.getByTestId(`${dialog}-name-input`), { target: { value: 'Release-Test' } });
     await act(async () => { await vi.advanceTimersByTimeAsync(700); });
     const button = screen.getByTestId(`${dialog}-confirm-button`);
     expect(button).toBeEnabled();
     await act(async () => { fireEvent.click(button); });
     if (dialog === 'install-config') {
-      expect(onInstall).toHaveBeenCalledWith({ distroName: 'Release Test', installLocation: undefined, wslVersion: 2 });
+      expect(onInstall).toHaveBeenCalledWith({ distroName: 'Release-Test', installLocation: undefined, wslVersion: 2 });
     } else if (dialog === 'clone') {
-      expect(wslService.cloneDistribution).toHaveBeenCalledWith('Ubuntu', 'Release Test', undefined);
+      expect(wslService.cloneDistribution).toHaveBeenCalledWith('Ubuntu', 'Release-Test', undefined);
     } else {
-      expect(wslService.renameDistribution).toHaveBeenCalledWith('ubuntu-id', 'Release Test', true, true);
+      expect(wslService.renameDistribution).toHaveBeenCalledWith('ubuntu-id', 'Release-Test', true, true);
     }
   });
 
-  it.each(['Release Test!', 'Release/Test', 'Release\tTest'])('still rejects %j', async (name) => {
+  it.each(['Rocky Test', 'Release Test!', 'Release/Test', 'Release\tTest'])('still rejects %j', async (name) => {
     fireEvent.change(screen.getByTestId(`${dialog}-name-input`), { target: { value: name } });
     await act(async () => { await vi.advanceTimersByTimeAsync(700); });
     expect(screen.getByTestId(`${dialog}-confirm-button`)).toBeDisabled();

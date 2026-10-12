@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "Der Name darf nur Buchstaben, Zahlen, Leerzeichen, Punkte, Unterstriche und Bindestriche enthalten",
+    "invalidChars": "Der Name darf nur Buchstaben, Zahlen, Punkte, Unterstriche und Bindestriche enthalten",
     "duplicateName": "Eine Distribution mit dem Namen \"{{name}}\" existiert bereits",
     "nameExists": "Eine Distribution mit diesem Namen existiert bereits",
     "required": "Dieses Feld ist erforderlich"

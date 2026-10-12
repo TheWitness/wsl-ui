@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "Name can only contain letters, numbers, spaces, dots, underscores, and hyphens",
+    "invalidChars": "Name can only contain letters, numbers, dots, underscores, and hyphens",
     "duplicateName": "A distribution named \"{{name}}\" already exists",
     "nameExists": "A distribution with this name already exists",
     "required": "This field is required"

@@ -65,7 +65,7 @@ export function RenameDialog({
       return null; // No error for empty or unchanged
     }
 
-    if (!/^[a-zA-Z0-9._ -]+$/.test(trimmedName)) {
+    if (!/^[a-zA-Z0-9._-]+$/.test(trimmedName)) {
       return t('common:validation.invalidChars') as string;
     }
 
@@ -97,7 +97,7 @@ export function RenameDialog({
     }
 
     // Basic validation (WSL name restrictions)
-    if (!/^[a-zA-Z0-9._ -]+$/.test(trimmedName)) {
+    if (!/^[a-zA-Z0-9._-]+$/.test(trimmedName)) {
       setError(t('common:validation.invalidChars'));
       return;
     }

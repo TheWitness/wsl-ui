@@ -49,7 +49,7 @@
     "tb": "TB"
   },
   "validation": {
-    "invalidChars": "Ad yalnızca harf, rakam, boşluk, nokta, alt çizgi ve kısa çizgi içerebilir",
+    "invalidChars": "Ad yalnızca harf, rakam, nokta, alt çizgi ve kısa çizgi içerebilir",
     "duplicateName": "\"{{name}}\" adında bir dağıtım zaten mevcut",
     "nameExists": "Bu adda bir dağıtım zaten mevcut",
     "required": "Bu alan zorunludur"
