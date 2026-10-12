@@ -68,6 +68,8 @@ try {
     Write-Host 'PASS: Real MSIX signed and timestamped, public-only CER exported, Store copy preserved, private key removed.'
 
     & $installScript -PackagePath $package -TrustCertificate -WhatIf
+    & powershell.exe -NoProfile -NonInteractive -File $installScript -PackagePath $package -TrustCertificate -WhatIf
+    if ($LASTEXITCODE -ne 0) { throw 'Windows PowerShell 5.1 trust preview failed.' }
     Assert-Throws { & $installScript -PackagePath $package -WhatIf } 'not trusted'
     Assert-Throws { & $signScript -PackagePath $storePackage -ExpectedPublisher 'CN=Wrong' } 'publisher'
     if (Test-Path "Cert:/CurrentUser/My/$($certificate.Thumbprint)") { throw 'Failed signing left a private key behind.' }
@@ -85,6 +87,8 @@ try {
             & $installScript -PackagePath $package -TrustCertificate -Confirm:$false
             if ((Get-AuthenticodeSignature $package).Status -ne 'Valid') { throw 'Trusted package must validate.' }
             & $installScript -PackagePath $package -WhatIf
+            & powershell.exe -NoProfile -NonInteractive -File $installScript -PackagePath $package -WhatIf
+            if ($LASTEXITCODE -ne 0) { throw 'Windows PowerShell 5.1 installation preview failed.' }
             Write-Host 'PASS: Trust helper makes the real signature valid; installation can be previewed.'
         }
         finally {
@@ -106,3 +110,6 @@ finally {
         Remove-Item -LiteralPath $resolvedTemp -Recurse -Force
     }
 }
+# The timestamp failure test intentionally leaves a native nonzero exit code.
+# Reset it for GitHub Actions' PowerShell wrapper after all assertions succeed.
+exit 0
