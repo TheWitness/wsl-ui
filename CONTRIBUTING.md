@@ -92,7 +92,7 @@ runners: verify dependency installation, frontend tests/build, the native app
 build and desktop tests. Keep mocked WSL results distinct from native WSL tests.
 
 Action updates are pinned to upstream release commits. `setup-node` 7.1.0 adds
-version-file handling and download retries; `upload-artifact` 7.0.2 improves
+additional version-file formats, absolute-path support and download retries; `upload-artifact` 7.0.2 improves
 rate-limit retries. These are updates within the existing action major versions;
 changing `node-version` does not change the runtime bundled inside each action.
 ### Project Structure
