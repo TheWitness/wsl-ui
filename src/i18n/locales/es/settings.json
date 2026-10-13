@@ -410,7 +410,7 @@
     "previewLabel": "Distributions in this manifest",
     "previewEmpty": "Manifest is valid but contains no distributions.",
     "defaultTag": "default",
-    "apply": "Apply (requires admin)",
+    "apply": "Apply",
     "applying": "Applying…",
     "applied": "Distribution source applied successfully.",
     "clear": "Reset to defaults",
