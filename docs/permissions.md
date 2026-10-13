@@ -22,13 +22,14 @@ WSL UI runs in the signed-in user's context. It does not elevate the whole app o
 
 `src-tauri/src/permissions.rs` owns the operation policy and process transport; `permissions.ps1` classifies PowerShell errors using exception metadata rather than localized message text.
 
-- Recognize access denied, elevation required and privilege-not-held Win32/HRESULT codes, WMI access denied, explicit .NET access/security exceptions and PowerShell PermissionDenied records.
+- Recognize access denied, elevation required and privilege-not-held Win32/HRESULT codes, WMI/CIM access denied, explicit .NET access/security exceptions and PowerShell PermissionDenied records.
 - Preserve cancellation (Win32 1223 / HRESULT 0x800704C7). Never retry after a failed elevated attempt.
 - Preserve unrelated failures, including sharing violations, missing files and malformed/missing process results.
 - Treat terminating and non-terminating PowerShell errors as failures.
 - Native commands carry their actual exit code and captured output through the wrapper. Unknown native codes are reported without assuming an English error message means permission denial.
 - Use a unique temporary result directory for each attempt and delete it after completion. Pass the elevated child an encoded command to preserve quoting and Unicode; it uses the configured PowerShell executable.
 - Registry changes are idempotent but are not a multi-value transaction. Write access is acquired before mutation; a later unrelated I/O failure is reported rather than hidden.
+- Restore a missing COMPUTERNAME from the local machine name before invoking Hyper-V; preserve an existing value.
 - Existing compaction shutdown/file validation remains in place.
 
 ## Validation

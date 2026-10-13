@@ -4,6 +4,10 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $env:WSL_UTF8 = '1'
+# Hyper-V resolves its default server from this variable. Some launchers omit it.
+if ([string]::IsNullOrWhiteSpace($env:COMPUTERNAME)) {
+    $env:COMPUTERNAME = [Environment]::MachineName
+}
 function Get-FailureKind($record) {
     $kind = 'other'
     $exception = $record.Exception
@@ -11,6 +15,11 @@ function Get-FailureKind($record) {
         $codes = @($exception.HResult)
         if ($exception -is [System.ComponentModel.Win32Exception]) {
             $codes += $exception.NativeErrorCode
+        }
+        # CIM uses its own status-code namespace: 2 is AccessDenied, not
+        # Win32's FileNotFound. Inspect only actual CIM exceptions.
+        if ($exception -is [Microsoft.Management.Infrastructure.CimException] -and [int]$exception.NativeErrorCode -eq 2) {
+            $kind = 'permission_denied'
         }
         foreach ($code in $codes) {
             $bits = [long]$code -band 0xffffffffL

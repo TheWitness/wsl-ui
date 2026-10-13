@@ -245,6 +245,46 @@ mod tests {
 
     #[cfg(windows)]
     #[test]
+    fn cim_access_denied_is_permission_failure_but_other_cim_codes_are_not() {
+        // CIM has a separate status-code namespace: 2 means AccessDenied,
+        // whereas Win32 code 2 means FileNotFound. Construct the real exception
+        // through its internal status-code constructor (public constructors
+        // cannot set NativeErrorCode).
+        for (code, expected) in [(2, FailureKind::PermissionDenied), (6, FailureKind::Other)] {
+            let script = format!(
+                r#"
+$constructor = [Microsoft.Management.Infrastructure.CimException].GetConstructors([Reflection.BindingFlags]'NonPublic,Instance') | Where-Object {{ $_.GetParameters().Count -eq 3 }} | Select-Object -First 1
+$code = [Enum]::ToObject($constructor.GetParameters()[0].ParameterType, {code})
+$exception = $constructor.Invoke([object[]]@($code, 'CIM failure', $null))
+throw [System.Exception]::new('outer wrapper', $exception)
+"#
+            );
+            let failure = run_attempt(&script, false).unwrap_err();
+            assert_eq!(failure.kind, expected, "{}", failure.message);
+        }
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn missing_computername_is_restored_before_operations() {
+        let directory = tempfile::tempdir().unwrap();
+        let result = directory.path().join("result.json");
+        let payload = operation_script("if ([string]::IsNullOrWhiteSpace($env:COMPUTERNAME)) { throw 'missing computer name' }; Write-Output $env:COMPUTERNAME", &result.to_string_lossy());
+        let command = format!("$env:COMPUTERNAME = $null; & {{ {payload} }}");
+        let output =
+            crate::utils::hidden_command(&crate::settings::get_executable_paths().powershell)
+                .args(["-NoProfile", "-NonInteractive", "-Command", &command])
+                .output()
+                .unwrap();
+        let response = parse_result(
+            &std::fs::read_to_string(result).unwrap(),
+            output.status.success(),
+        );
+        assert!(!response.unwrap().trim().is_empty());
+    }
+
+    #[cfg(windows)]
+    #[test]
     fn powershell_nonterminating_errors_are_failures() {
         let failure = run_attempt(
             "Write-Error 'deliberate failure'; Write-Output 'false success'",
