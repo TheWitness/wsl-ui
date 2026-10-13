@@ -397,7 +397,7 @@
     "title": "WSL Distribution Sources",
     "description": "Add community manifests to wsl --list --online via DistributionListUrl/Append",
     "warningTitle": "Security note",
-    "warningBody": "This points WSL's native install flow at a third-party manifest URL. Only add sources you trust. Applies machine-wide and requires administrator approval.",
+    "warningBody": "This points WSL's native install flow at a third-party manifest URL. Only add sources you trust. Applies machine-wide and may request administrator approval.",
     "currentLabel": "Currently registered (HKLM)",
     "noCurrent": "No custom source. WSL uses Microsoft's default distribution list.",
     "loading": "Loading…",
@@ -420,7 +420,7 @@
     "clearing": "Resetting…",
     "cleared": "Reset to Microsoft's default distribution list.",
     "suggestedTitle": "Suggested sources",
-    "suggestedDesc": "One-click load — you still confirm the preview and approve the UAC prompt.",
+    "suggestedDesc": "One-click load — you still confirm the preview and approve any UAC prompt.",
     "suggestedAdd": "Load",
     "errors": {
       "emptyUrl": "Manifest URL is required."
