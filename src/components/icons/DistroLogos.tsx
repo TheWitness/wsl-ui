@@ -479,6 +479,12 @@ export function getDistroLogo(distroId: string): React.ComponentType<DistroLogoP
     return DISTRO_LOGOS[lowerDistro];
   }
 
+  // RLC (Rocky Linux from CIQ) must win over the generic "rocky" substring
+  // match in the loop below (e.g. "CIQ-RockyLinux" contains both).
+  if (lowerDistro.includes('rlc') || lowerDistro.includes('ciq')) {
+    return RlcLogo;
+  }
+
   // Try to match by prefix/contains
   for (const [key, Logo] of Object.entries(DISTRO_LOGOS)) {
     if (lowerDistro.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerDistro)) {
